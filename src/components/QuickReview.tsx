@@ -33,7 +33,7 @@ export default function QuickReview({ moduleName }: QuickReviewProps) {
         
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
-          throw new TypeError("Oops, we haven't got JSON!");
+          throw new Error("Conexión interrumpida o servidor no disponible temporalmente.");
         }
         
         const data = await response.json();

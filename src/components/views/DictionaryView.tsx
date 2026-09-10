@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Search, BookText, Beaker, Zap, Thermometer, Info } from 'lucide-react';
+import { Search, BookText, Beaker, Zap, Thermometer, Info, List, Layers } from 'lucide-react';
+import Flashcards from '../Flashcards';
 
 const DICTIONARY = [
   { term: "Materia", definition: "Todo lo que tiene masa y ocupa lugar en el espacio (volumen).", category: "Materia" },
@@ -13,6 +14,7 @@ const DICTIONARY = [
   { term: "Energía Cinética", definition: "Energía que posee un cuerpo a causa de su movimiento. Depende de su masa y velocidad.", category: "Energía" },
   { term: "Energía Potencial", definition: "Energía almacenada en un objeto debido a su posición en un campo de fuerza (como la gravedad).", category: "Energía" },
   { term: "Energía Mecánica", definition: "La suma de la energía cinética y potencial de un cuerpo.", category: "Energía" },
+  { term: "Joule", definition: "Unidad del Sistema Internacional para la energía. 1 Joule equivale al trabajo para producir un vatio de potencia por un segundo (o mover 100g a 1 metro de altura).", category: "Energía" },
   
   { term: "Calor", definition: "Energía térmica en tránsito; se transfiere de un cuerpo de mayor temperatura a uno de menor temperatura.", category: "Termodinámica" },
   { term: "Temperatura", definition: "Medida de la energía cinética promedio de las partículas en una sustancia.", category: "Termodinámica" },
@@ -23,6 +25,7 @@ const DICTIONARY = [
 
 export default function DictionaryView() {
   const [query, setQuery] = useState('');
+  const [viewMode, setViewMode] = useState<'list' | 'flashcards'>('list');
 
   const filteredTerms = DICTIONARY.filter(item => 
     item.term.toLowerCase().includes(query.toLowerCase()) || 
@@ -50,54 +53,77 @@ export default function DictionaryView() {
         <p className="text-body-md text-on-surface-variant mt-2">Buscá y repasá rápidamente los términos fundamentales de física y química.</p>
       </section>
 
-      {/* Search Input */}
-      <section className="sticky top-16 z-20 pt-2 pb-4 bg-surface">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-on-surface-variant" />
-          </div>
-          <input
-            type="text"
-            className="block w-full pl-10 pr-3 py-3 border border-outline-variant/30 rounded-xl bg-surface-container-high text-on-surface placeholder-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow shadow-sm font-spline"
-            placeholder="Buscar por término o definición..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div>
+      {/* View Toggle */}
+      <section className="flex items-center bg-surface-container-high rounded-lg p-1 border border-outline-variant/30">
+        <button 
+          onClick={() => setViewMode('list')}
+          className={`flex-1 py-2 flex items-center justify-center gap-2 rounded-md font-space text-[14px] font-bold transition-colors ${viewMode === 'list' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-highest'}`}
+        >
+          <List className="w-4 h-4" /> Lista
+        </button>
+        <button 
+          onClick={() => setViewMode('flashcards')}
+          className={`flex-1 py-2 flex items-center justify-center gap-2 rounded-md font-space text-[14px] font-bold transition-colors ${viewMode === 'flashcards' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface-container-highest'}`}
+        >
+          <Layers className="w-4 h-4" /> Flashcards
+        </button>
       </section>
 
-      {/* Dictionary List */}
-      <section className="flex flex-col gap-3">
-        {filteredTerms.length > 0 ? (
-          filteredTerms.map((item, idx) => (
-            <div 
-              key={idx} 
-              className="bg-surface-container p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-2 hover:border-primary/40 transition-colors animate-in slide-in-from-bottom-2 fade-in"
-              style={{ animationDelay: `${idx * 50}ms` }}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="font-space font-bold text-[16px] text-on-surface">{item.term}</h3>
-                <div className="flex items-center gap-1.5 bg-surface-container-highest px-2 py-0.5 rounded text-[11px] font-space text-on-surface-variant uppercase tracking-wider font-semibold">
-                  {getCategoryIcon(item.category)}
-                  {item.category}
+      {viewMode === 'list' ? (
+        <>
+          {/* Search Input */}
+          <section className="sticky top-16 z-20 pb-4 bg-surface pt-2">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-on-surface-variant" />
+              </div>
+              <input
+                type="text"
+                className="block w-full pl-10 pr-3 py-3 border border-outline-variant/30 rounded-xl bg-surface-container-high text-on-surface placeholder-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow shadow-sm font-spline"
+                placeholder="Buscar por término o definición..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+          </section>
+
+          {/* Dictionary List */}
+          <section className="flex flex-col gap-3">
+            {filteredTerms.length > 0 ? (
+              filteredTerms.map((item, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-surface-container p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-2 hover:border-primary/40 transition-colors animate-in slide-in-from-bottom-2 fade-in"
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-space font-bold text-[16px] text-on-surface">{item.term}</h3>
+                    <div className="flex items-center gap-1.5 bg-surface-container-highest px-2 py-0.5 rounded text-[11px] font-space text-on-surface-variant uppercase tracking-wider font-semibold">
+                      {getCategoryIcon(item.category)}
+                      {item.category}
+                    </div>
+                  </div>
+                  <p className="font-spline text-[14px] text-on-surface-variant leading-relaxed">
+                    {item.definition}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="bg-surface-container-low p-8 rounded-xl flex flex-col items-center justify-center text-center gap-3 border border-dashed border-outline-variant">
+                <Search className="w-10 h-10 text-on-surface-variant/40" />
+                <div>
+                  <p className="font-space font-bold text-on-surface">No se encontraron resultados</p>
+                  <p className="text-body-sm text-on-surface-variant">Prueba escribiendo otra palabra o concepto.</p>
                 </div>
               </div>
-              <p className="font-spline text-[14px] text-on-surface-variant leading-relaxed">
-                {item.definition}
-              </p>
-            </div>
-          ))
-        ) : (
-          <div className="bg-surface-container-low p-8 rounded-xl flex flex-col items-center justify-center text-center gap-3 border border-dashed border-outline-variant">
-            <Search className="w-10 h-10 text-on-surface-variant/40" />
-            <div>
-              <p className="font-space font-bold text-on-surface">No se encontraron resultados</p>
-              <p className="text-body-sm text-on-surface-variant">Prueba escribiendo otra palabra o concepto.</p>
-            </div>
-          </div>
-        )}
-      </section>
-
+            )}
+          </section>
+        </>
+      ) : (
+        <section className="flex items-center justify-center py-4">
+          <Flashcards items={DICTIONARY} />
+        </section>
+      )}
     </div>
   );
 }

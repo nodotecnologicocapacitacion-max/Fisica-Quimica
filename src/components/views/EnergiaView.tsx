@@ -3,6 +3,8 @@ import { Zap, Play, Pause, RotateCcw, AlertCircle, CheckCircle2 } from 'lucide-r
 import QuickReview from '../QuickReview';
 import QuickTips from '../QuickTips';
 import VoiceNotes from '../VoiceNotes';
+import QuickCheck from '../QuickCheck';
+import TermTooltip from '../TermTooltip';
 
 interface Props {
   isCompleted?: boolean;
@@ -51,8 +53,18 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
   const ecPercent = totalE > 0 ? (ec / totalE) * 100 : 0;
   const heatPercent = totalE > 0 ? (heat / totalE) * 100 : 0;
 
+  // Calculator State
+  const [calcMass, setCalcMass] = useState<string>('10');
+  const [calcVel, setCalcVel] = useState<string>('5');
+  
+  // Calculate Ec for the widget
+  const parsedMass = parseFloat(calcMass) || 0;
+  const parsedVel = parseFloat(calcVel) || 0;
+  const calculatedEc = 0.5 * parsedMass * Math.pow(parsedVel, 2);
+
   return (
     <div className="flex flex-col w-full px-space-md pt-space-md pb-space-2xl space-y-space-md">
+
       
       {/* Header */}
       <section className="relative overflow-hidden rounded-xl bg-surface-container-high p-space-md shadow-xl">
@@ -82,7 +94,7 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
             Energía es la capacidad que tienen los cuerpos de producir trabajo, en otras palabras, producir cambios. <strong>NO es un estado, ni es tangible</strong>, pero es algo que les permite a los objetos del universo moverse, dar luz, generar calor, etc.
           </p>
           <div className="bg-surface-container-low p-3 rounded-lg border-l-4 border-secondary text-[13px] italic">
-            Ejemplo: Cuando comes te llenas de energía para moverte y hacer todas tus tareas. Esa fuente de energía se denomina <strong>Energía Química</strong> y tu cuerpo la transforma en <strong>Energía Mecánica</strong> al moverte. La Energía Mecánica es la más básica porque tenemos contacto frecuente con ella al movernos, al subir una escalera, etc.
+            Ejemplo: Cuando comes te llenas de energía para moverte y hacer todas tus tareas. Esa fuente de energía se denomina <strong>Energía Química</strong> y tu cuerpo la transforma en <TermTooltip term="Energía Mecánica" definition="Suma de la energía cinética y potencial. Es la energía de los cuerpos en movimiento o en una posición específica." /> al moverte. La <TermTooltip term="Energía Mecánica" definition="Suma de la energía cinética y potencial. Es la energía de los cuerpos en movimiento o en una posición específica." /> es la más básica porque tenemos contacto frecuente con ella al movernos, al subir una escalera, etc.
           </div>
         </div>
 
@@ -92,7 +104,7 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
             La cantidad total de energía existente en el Universo es siempre la misma, hecho que constituye el <strong>«Principio de Conservación de la Energía»</strong>: La energía no se crea ni se destruye, solamente se trasforma.
           </p>
           <p className="text-[14px] leading-relaxed">
-            La unidad de la energía se llama <strong>Joule</strong>, cuyo símbolo es <strong>J</strong>. El Joule está formado por dos unidades, es decir que es una magnitud DERIVADA:
+            La unidad de la energía se llama <TermTooltip term="Joule" definition="1 Joule es la energía necesaria para levantar un objeto de ~100g a 1 metro de altura." />, cuyo símbolo es <strong>J</strong>. El Joule está formado por dos unidades, es decir que es una <TermTooltip term="magnitud derivada" definition="Aquella que se forma combinando otras magnitudes fundamentales, como kg, metros y segundos." />:
           </p>
           <div className="bg-surface-container-highest p-3 rounded-lg font-mono text-[13px] font-bold text-center text-primary">
             J = N · m &nbsp;&nbsp;ó&nbsp;&nbsp; J = kg · (m/s)²
@@ -168,7 +180,7 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
           <div className="bg-surface-container-low p-3 rounded-lg text-[13px] space-y-1 text-on-surface-variant border border-outline-variant/20">
             <p><strong>Donde:</strong></p>
             <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Ep:</strong> Energía Potencial, su unidad es el Joule [J]</li>
+              <li><strong>Ep:</strong> Energía Potencial, su unidad es el <TermTooltip term="Joule" definition="1 Joule es la energía necesaria para levantar un objeto de ~100g a 1 metro de altura." /> [J]</li>
               <li><strong>m:</strong> Masa del cuerpo, su unidad es el kilogramo [kg]</li>
               <li><strong>h:</strong> Altura del cuerpo, su unidad es el metro [m]</li>
               <li><strong>g:</strong> Aceleración de la Gravedad, es una constante (g = 9.8 m/s²)</li>
@@ -191,7 +203,7 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
           <div className="bg-surface-container-low p-3 rounded-lg text-[13px] space-y-1 text-on-surface-variant border border-outline-variant/20">
             <p><strong>Donde:</strong></p>
             <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Ec:</strong> Energía Cinética, su unidad es el Joule [J]</li>
+              <li><strong>Ec:</strong> Energía Cinética, su unidad es el <TermTooltip term="Joule" definition="1 Joule es la energía necesaria para levantar un objeto de ~100g a 1 metro de altura." /> [J]</li>
               <li><strong>m:</strong> Masa del cuerpo, su unidad es el kilogramo [kg]</li>
               <li><strong>v:</strong> Velocidad del cuerpo, su unidad es el metro por segundo [m/s]*</li>
             </ul>
@@ -287,9 +299,123 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
         </div>
       </section>
 
+      {/* Calculator Widget */}
+      <section className="bg-surface-container-high rounded-xl p-space-md shadow-xl border border-tertiary/20 space-y-4 relative overflow-hidden">
+        <div className="absolute -right-8 -top-8 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="flex items-center gap-2 relative z-10">
+          <div className="p-2 bg-tertiary/20 rounded-lg text-tertiary">
+            <Zap className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-space text-[16px] font-bold text-on-surface">Calculadora de Energía</h3>
+            <p className="text-[12px] text-on-surface-variant font-spline">Calcula la Energía Cinética (Ec)</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 relative z-10">
+          <div className="space-y-1">
+            <label className="text-[12px] font-space text-on-surface-variant font-bold ml-1">Masa (kg)</label>
+            <input 
+              type="number" 
+              value={calcMass} 
+              onChange={(e) => setCalcMass(e.target.value)}
+              className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-3 py-2 text-on-surface font-mono outline-none focus:border-tertiary transition-colors"
+              placeholder="0"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[12px] font-space text-on-surface-variant font-bold ml-1">Velocidad (m/s)</label>
+            <input 
+              type="number" 
+              value={calcVel} 
+              onChange={(e) => setCalcVel(e.target.value)}
+              className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-3 py-2 text-on-surface font-mono outline-none focus:border-tertiary transition-colors"
+              placeholder="0"
+            />
+          </div>
+        </div>
+
+        <div className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/20 relative z-10 overflow-hidden">
+          
+          {/* SVG Visualization */}
+          <div className="absolute right-0 top-0 bottom-0 w-32 opacity-20 pointer-events-none flex items-center justify-end pr-4">
+            <svg viewBox="0 0 100 100" className="w-24 h-24 text-tertiary">
+              <path 
+                d="M10,90 Q50,90 90,10" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="4" 
+                strokeDasharray="8,8"
+              />
+              <circle 
+                cx="90" 
+                cy="10" 
+                r={Math.min(15, 5 + (calculatedEc / 100))} 
+                fill="currentColor"
+                className="transition-all duration-300"
+              />
+              <g 
+                className="transition-all duration-300 origin-center"
+                style={{ transform: `translate(10px, 90px) rotate(${Math.min(90, calculatedEc / 10)}deg)` }}
+              >
+                <path d="M0,0 L20,-5 L20,5 Z" fill="currentColor" />
+              </g>
+            </svg>
+          </div>
+
+          <div className="text-[13px] text-on-surface-variant font-mono mb-2 relative z-10">
+            Ec = ½ · {parsedMass || 0} kg · ({parsedVel || 0} m/s)²
+          </div>
+          <div className="flex justify-between items-end relative z-10">
+            <span className="font-space font-bold text-on-surface text-[14px]">Resultado:</span>
+            <div className="text-right">
+              <span className="font-mono text-2xl font-bold text-tertiary transition-all duration-300 block transform origin-right" style={{ transform: `scale(${1 + Math.min(0.2, calculatedEc / 5000)})` }}>
+                {calculatedEc.toLocaleString('es-ES', { maximumFractionDigits: 2 })}
+              </span>
+              <span className="font-space font-bold text-tertiary ml-1">J</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <QuickReview moduleName="Energía Mecánica, Cinética y Potencial" />
 
       <VoiceNotes moduleName="Energía Mecánica, Cinética y Potencial" />
+
+      <QuickCheck 
+        questions={[
+          {
+            id: 1,
+            text: "¿Qué dice el Principio de Conservación de la Energía?",
+            options: [
+              "La energía siempre disminuye con el tiempo hasta desaparecer.",
+              "La energía no se crea ni se destruye, solamente se transforma.",
+              "La energía potencial es siempre mayor que la energía cinética."
+            ],
+            correctAnswer: 1
+          },
+          {
+            id: 2,
+            text: "Si un skater de 50kg está en el punto más alto de una rampa y no se mueve, ¿qué tipo de energía tiene en ese exacto momento?",
+            options: [
+              "Solo Energía Potencial Gravitatoria",
+              "Solo Energía Cinética",
+              "Energía Eléctrica y Magnética"
+            ],
+            correctAnswer: 0
+          },
+          {
+            id: 3,
+            text: "Según la fórmula de Energía Cinética (Ec = ½ · m · v²), si aumentas mucho la velocidad del cuerpo...",
+            options: [
+              "La Energía Cinética se mantiene igual.",
+              "La Energía Potencial disminuye el doble.",
+              "La Energía Cinética aumentará significativamente (al cuadrado)."
+            ],
+            correctAnswer: 2
+          }
+        ]}
+      />
 
       <section className="pt-4">
         <button 
