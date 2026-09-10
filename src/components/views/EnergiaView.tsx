@@ -65,6 +65,144 @@ export default function EnergiaView({ isCompleted = false, onToggle }: Props) {
         <p className="text-body-md text-secondary-fixed mt-2">La energía no se crea ni se destruye: ¡solo se transforma!</p>
       </section>
 
+      {/* Contenido Teórico */}
+      <section className="bg-surface-container-high rounded-xl p-space-md shadow-lg border border-outline-variant/30 space-y-4 font-spline text-on-surface">
+        <div className="space-y-2">
+          <h2 className="font-space text-[20px] font-bold text-primary flex items-center gap-2">
+            <Zap className="w-6 h-6" /> Clase: Energía
+          </h2>
+          <p className="text-[14px] leading-relaxed">
+            La energía ha constituido una pieza clave para el desarrollo de la humanidad. El hombre, desde el principio de su existencia, ha necesitado la energía para sobrevivir y avanzar. Pero ¿qué es la energía y por qué tiene tanta importancia?
+          </p>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="font-space text-[16px] font-bold text-secondary">¿Qué es la Energía?</h3>
+          <p className="text-[14px] leading-relaxed">
+            Energía es la capacidad que tienen los cuerpos de producir trabajo, en otras palabras, producir cambios. <strong>NO es un estado, ni es tangible</strong>, pero es algo que les permite a los objetos del universo moverse, dar luz, generar calor, etc.
+          </p>
+          <div className="bg-surface-container-low p-3 rounded-lg border-l-4 border-secondary text-[13px] italic">
+            Ejemplo: Cuando comes te llenas de energía para moverte y hacer todas tus tareas. Esa fuente de energía se denomina <strong>Energía Química</strong> y tu cuerpo la transforma en <strong>Energía Mecánica</strong> al moverte. La Energía Mecánica es la más básica porque tenemos contacto frecuente con ella al movernos, al subir una escalera, etc.
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="font-space text-[16px] font-bold text-tertiary">Principio de Conservación de la Energía</h3>
+          <p className="text-[14px] leading-relaxed">
+            La cantidad total de energía existente en el Universo es siempre la misma, hecho que constituye el <strong>«Principio de Conservación de la Energía»</strong>: La energía no se crea ni se destruye, solamente se trasforma.
+          </p>
+          <p className="text-[14px] leading-relaxed">
+            La unidad de la energía se llama <strong>Joule</strong>, cuyo símbolo es <strong>J</strong>. El Joule está formado por dos unidades, es decir que es una magnitud DERIVADA:
+          </p>
+          <div className="bg-surface-container-highest p-3 rounded-lg font-mono text-[13px] font-bold text-center text-primary">
+            J = N · m &nbsp;&nbsp;ó&nbsp;&nbsp; J = kg · (m/s)²
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="font-space text-[16px] font-bold text-secondary">Propiedades de la Energía</h3>
+          <p className="text-[14px] leading-relaxed mb-2">La energía tiene 5 propiedades básicas:</p>
+          <ul className="list-disc pl-5 space-y-1 text-[14px] text-on-surface-variant">
+            <li><strong>Se transforma:</strong> La energía no se crea, sino que se transforma y es durante esta transformación cuando se manifiestan las diferentes formas de energía.</li>
+            <li><strong>Se almacena:</strong> Una pila y un ser vivo almacenan energía química en su interior.</li>
+            <li><strong>Se transfiere:</strong> La energía pasa de un cuerpo a otro.</li>
+            <li><strong>Se conserva:</strong> Al final de cualquier proceso de transformación energética nunca puede haber más o menos energía que la que había al principio, siempre se mantiene constante. La energía no se destruye.</li>
+            <li><strong>Se degrada:</strong> Solo una parte de la energía transformada es capaz de producir trabajo y la otra se pierde en forma de calor o ruido (vibraciones mecánicas no deseadas).</li>
+          </ul>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="font-space text-[16px] font-bold text-tertiary">Tipos de Energía</h3>
+          <p className="text-[14px] leading-relaxed mb-2">La energía se manifiesta de diferentes maneras, recibiendo así diferentes denominaciones según las acciones y los cambios que puede provocar. Algunas de ellas son:</p>
+          <div className="grid grid-cols-2 gap-2 text-[13px] text-on-surface-variant">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Energía Mecánica</li>
+              <li>Energía Cinética</li>
+              <li>Energía Potencial</li>
+              <li>Energía Calórica o Térmica</li>
+              <li>Energía Eléctrica</li>
+              <li>Energía Magnética</li>
+            </ul>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Energía Solar</li>
+              <li>Energía Atómica o Nuclear</li>
+              <li>Energía Química</li>
+              <li>Energía Luminosa</li>
+              <li>Energía Sonora</li>
+              <li>Energía Hidráulica</li>
+              <li>Energía Eólica</li>
+            </ul>
+          </div>
+          <p className="text-[14px] leading-relaxed mt-2 italic text-primary font-bold">
+            De las cuales ya estudiamos la cuarta (Térmica) y vamos a estudiar en profundidad los tres primeros tipos de energía.
+          </p>
+        </div>
+
+        {/* ENERGIA MECANICA */}
+        <div className="mt-4 pt-4 border-t border-outline-variant/30 space-y-3">
+          <h3 className="font-space text-[18px] font-bold text-on-surface bg-primary/20 p-2 rounded inline-block">ENERGÍA MECÁNICA (Em)</h3>
+          <p className="text-[14px] leading-relaxed">
+            Es la energía que posee un cuerpo por causas de origen mecánico y se relaciona con la posición y movimiento de los cuerpos. Fundamentalmente, se distinguen dos tipos de energía mecánica:
+          </p>
+          <ul className="list-disc pl-5 space-y-1 text-[14px] text-on-surface-variant">
+            <li>Energía potencial o de posición (<strong>Ep</strong>).</li>
+            <li>Energía cinética o de movimiento (<strong>Ec</strong>).</li>
+          </ul>
+          <p className="text-[14px] leading-relaxed">
+            Y casualmente la energía mecánica es la suma de estas dos:
+          </p>
+          <div className="bg-surface-container-highest p-3 rounded-lg font-mono text-[16px] font-bold text-center text-primary shadow-inner">
+            Em = Ep + Ec
+          </div>
+        </div>
+
+        {/* ENERGIA POTENCIAL */}
+        <div className="mt-4 pt-4 border-t border-outline-variant/30 space-y-3">
+          <h3 className="font-space text-[18px] font-bold text-on-surface bg-secondary/20 p-2 rounded inline-block">ENERGÍA POTENCIAL GRAVITATORIA (Ep)</h3>
+          <p className="text-[14px] leading-relaxed">
+            La energía potencial gravitatoria, o simplemente Energía Potencial, es la que posee un cuerpo por el hecho de ocupar una determinada posición dentro de un campo gravitatorio terrestre. Se representa por <strong>Ep</strong> y está dada por la ecuación:
+          </p>
+          <div className="bg-surface-container-highest p-3 rounded-lg font-mono text-[16px] font-bold text-center text-secondary shadow-inner flex items-center justify-center gap-4">
+            <span>Ep = m · g · h</span>
+          </div>
+          <div className="bg-surface-container-low p-3 rounded-lg text-[13px] space-y-1 text-on-surface-variant border border-outline-variant/20">
+            <p><strong>Donde:</strong></p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><strong>Ep:</strong> Energía Potencial, su unidad es el Joule [J]</li>
+              <li><strong>m:</strong> Masa del cuerpo, su unidad es el kilogramo [kg]</li>
+              <li><strong>h:</strong> Altura del cuerpo, su unidad es el metro [m]</li>
+              <li><strong>g:</strong> Aceleración de la Gravedad, es una constante (g = 9.8 m/s²)</li>
+            </ul>
+          </div>
+          <p className="text-[14px] leading-relaxed text-secondary-fixed">
+            La aceleración de la gravedad (g) no cambiará, pero sí puede variar la masa y la altura. Diremos que la <strong>Energía Potencial es directamente proporcional a la masa y a la altura</strong>; es decir, a medida que aumente la masa o la altura la energía potencial aumentará, y si disminuye la masa o la altura la energía potencial disminuirá.
+          </p>
+        </div>
+
+        {/* ENERGIA CINETICA */}
+        <div className="mt-4 pt-4 border-t border-outline-variant/30 space-y-3">
+          <h3 className="font-space text-[18px] font-bold text-on-surface bg-tertiary/20 p-2 rounded inline-block">ENERGÍA CINÉTICA (Ec)</h3>
+          <p className="text-[14px] leading-relaxed">
+            Energía cinética es la que posee un cuerpo por el hecho de estar en movimiento. Se representa por <strong>Ec</strong> y está dada por la ecuación:
+          </p>
+          <div className="bg-surface-container-highest p-3 rounded-lg font-mono text-[16px] font-bold text-center text-tertiary shadow-inner flex items-center justify-center gap-4">
+            <span>Ec = ½ · m · v²</span>
+          </div>
+          <div className="bg-surface-container-low p-3 rounded-lg text-[13px] space-y-1 text-on-surface-variant border border-outline-variant/20">
+            <p><strong>Donde:</strong></p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><strong>Ec:</strong> Energía Cinética, su unidad es el Joule [J]</li>
+              <li><strong>m:</strong> Masa del cuerpo, su unidad es el kilogramo [kg]</li>
+              <li><strong>v:</strong> Velocidad del cuerpo, su unidad es el metro por segundo [m/s]*</li>
+            </ul>
+            <p className="text-[11px] text-on-surface-variant mt-2 italic">* Se dirá metro por segundo pero se escribirá m/s.</p>
+          </div>
+          <p className="text-[14px] leading-relaxed text-tertiary-fixed">
+            Diremos que la <strong>Energía Cinética es directamente proporcional a la masa y a la velocidad</strong> (al cuadrado); es decir, a medida que aumente la masa o la velocidad la energía cinética aumentará, y si disminuye la masa o la velocidad la energía cinética va a disminuir.
+          </p>
+        </div>
+      </section>
+
       <QuickTips />
 
       {/* Simulator */}
